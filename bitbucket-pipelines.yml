@@ -13,7 +13,7 @@ pipelines:
         script:
           - yarn global add @angular/cli
           - yarn
-          - ng build --base-href=./my-app/ --prod --build-optimizer
+          - ng build --prod --build-optimizer
         artifacts:
           - dist/**
 
@@ -26,7 +26,7 @@ pipelines:
           script:
             - yarn global add @angular/cli
             - yarn
-            - ng build --base-href=./my-app/ --prod --build-optimizer
+            - ng build --prod --build-optimizer
           artifacts:
             - dist/**
       - step:
