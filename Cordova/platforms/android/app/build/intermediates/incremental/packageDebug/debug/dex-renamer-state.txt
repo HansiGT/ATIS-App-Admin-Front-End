@@ -1,4 +1,0 @@
-#Fri Jul 13 17:31:33 CEST 2018
-base.0=C\:\\Users\\ratzh\\OneDrive\\Dokumente\\PSE\\hello\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-renamed.0=classes.dex
-file.0=C\:\\Users\\ratzh\\OneDrive\\Dokumente\\PSE\\hello\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
