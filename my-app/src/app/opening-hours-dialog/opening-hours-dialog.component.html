@@ -1,3 +1,4 @@
+
 <h2 mat-dialog-title>Öffnungszeiten ändern</h2>
 
 <mat-form-field>
@@ -12,9 +13,12 @@
   </mat-select>
 </mat-form-field>
 <mat-form-field hintLabel="Uhrzeit-Format: hh:mm">
-  <input matInput #input placeholder="Von:">
+  <input [(ngModel)]="from" aria-label="24hr format" [ngxTimepicker]="picker" [format]="24" matInput #input placeholder="Von:">
+  <ngx-material-timepicker #picker></ngx-material-timepicker>
 </mat-form-field>
 <mat-form-field hintLabel="Uhrzeit-Format: hh:mm">
-  <input matInput #input placeholder="Bis:">
+  <input [(ngModel)]="until" [ngxTimepicker]="picker2" [format]="24" matInput #input placeholder="Bis:">
+  <ngx-material-timepicker #picker2></ngx-material-timepicker>
 </mat-form-field>
-<button>Save</button>
+<br>
+<button (click)="julianStinks()" id="Save" mat-raised-button color="primary">Save</button>

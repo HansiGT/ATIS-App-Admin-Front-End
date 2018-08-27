@@ -8,10 +8,16 @@ import {MatSelectModule} from '@angular/material/select';
   styleUrls: ['./opening-hours-dialog.component.css']
 })
 export class OpeningHoursDialogComponent implements OnInit {
+  from = "";
+  until = "";
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  julianStinks() {
+    console.log(this.from,this.until);
   }
 
 }

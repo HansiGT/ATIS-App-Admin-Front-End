@@ -239,10 +239,5 @@ export class LayoutEditorComponent implements OnInit {
         originLeft = elmnt.style.left;
       }
   }
-
-
-
-
-
-
+}
 }

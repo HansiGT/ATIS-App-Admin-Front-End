@@ -1,32 +1,47 @@
-# This is a sample build configuration for JavaScript.
-# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-image: httpd:2.4
+image: node:10
 
+# enabling docker
 options:
   docker: true
-  
+
 pipelines:
   default:
+    - step:
+        name: Build project
+        caches:
+          - node
+        script:
+          - yarn global add @angular/cli
+          - yarn
+          - ng build --prod --build-optimizer
+        artifacts:
+          - dist/**
+
   branches:
-    # nur der master branch wird gebuilded
     master:
+      - step:
+          name: Build project
+          caches:
+            - node
+          script:
+            - yarn global add @angular/cli
+            - yarn
+            - ng build --prod --build-optimizer
+          artifacts:
+            - dist/**
       - step:
           name: Build Docker Image
           script:
-           - echo "-----Build Docker Image-----"
-           - export IMAGE_LATEST=$REGISTRY_DOMAIN/$REGISTRY_NAME/$APPNAME:latest
-           - export REPOSITORY_NAME=$REGISTRY_DOMAIN/$REGISTRY_NAME/$APPNAME
-           - export IMAGE_CURRENT=$REPOSITORY_NAME:$BITBUCKET_COMMIT
+            - export IMAGE_LATEST=$REGISTRY_DOMAIN/$REGISTRY_NAME/$APPNAME:latest
+            - export REPOSITORY_NAME=$REGISTRY_DOMAIN/$REGISTRY_NAME/$APPNAME
+            - export IMAGE_CURRENT=$REPOSITORY_NAME:$BITBUCKET_COMMIT
 
-             # build and push image to docker registry
-           - docker login -u $REGISTRY_NAME -p $REGISTRY_PASSWORD $REGISTRY_DOMAIN      
-           - docker build -t $IMAGE_CURRENT -t $REPOSITORY_NAME .
-           - docker push $IMAGE_CURRENT
-           - docker push $IMAGE_LATEST
-           - docker logout
+              # build and push image to docker registry
+            - docker login -u $REGISTRY_NAME -p $REGISTRY_PASSWORD $REGISTRY_DOMAIN
+            - docker build -t $IMAGE_CURRENT -t $REPOSITORY_NAME .
+            - docker push $IMAGE_CURRENT
+            - docker push $IMAGE_LATEST
+            - docker logout
       - step:
           name: Deploy to PaaS
           deployment: test

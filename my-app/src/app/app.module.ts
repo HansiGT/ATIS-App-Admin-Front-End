@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdDatepickerPopup } from "./datepicker/datepicker.component";
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PredictionService } from './prediction.service';
 import { CurrentUtilizationService } from './current-utilization.service';
@@ -72,6 +73,7 @@ import { OpeningHoursDialogComponent } from './opening-hours-dialog/opening-hour
   ],
   imports: [
     NgbModule.forRoot(),
+    NgxMaterialTimepickerModule.forRoot(),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

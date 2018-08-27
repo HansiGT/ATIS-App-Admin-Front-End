@@ -5,3 +5,8 @@ h2 {
 #openingHours {
     margin: 4vw;
 }
+
+html,
+body {
+    height: 100%
+}
