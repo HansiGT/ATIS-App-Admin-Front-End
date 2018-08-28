@@ -27,4 +27,8 @@ describe('MainNavComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have an icon, a label and a routerLink for each element', () => {
+    expect(component).toBeFalsy();
+  });
 });

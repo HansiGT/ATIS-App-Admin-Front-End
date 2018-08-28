@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentUtilizationService } from '../current-utilization.service';
+import { CurrentUtilizationService } from '../current-utilization.service'
 
 @Component({
   selector: 'app-current-utilization',

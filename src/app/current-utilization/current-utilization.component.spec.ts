@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CurrentUtilizationComponent } from './current-utilization.component';
 
 describe('CurrentUtilizationComponent', () => {
@@ -8,7 +8,10 @@ describe('CurrentUtilizationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrentUtilizationComponent ]
+      declarations: [ CurrentUtilizationComponent ],
+      schemas: [
+        NO_ERRORS_SCHEMA //muss drin sein weil sonst nur errors kommen
+      ]
     })
     .compileComponents();
   }));

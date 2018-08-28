@@ -2,7 +2,7 @@
   <body>
 <div id="container">
 
-  <h1>Layout Editor </h1>
+  <h1>Layout Editor</h1>
 
   <div class="container">
 
@@ -36,23 +36,25 @@
          </select>
           <button (click)="createElement();">Create</button>
 
-          <div id="element0" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
-          </div>
-          <div id="element1" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
-          </div>
-          <div id="element2" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
-          </div>
-          <div id="element3" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
-          </div>
-          <div id="element4" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
-          </div>
-          <div id="element5" appDraggable
-            (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+          <div class="row">
+            <div id="element0" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element1" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element2" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element3" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element4" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element5" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
           </div>
       </div>
 

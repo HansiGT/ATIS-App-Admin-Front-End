@@ -1,5 +1,5 @@
-import {Component, Output, EventEmitter} from '@angular/core';
-import {PredictionService} from '../prediction.service';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { PredictionService } from '../prediction.service';
 
 const now = new Date();
 
@@ -7,17 +7,21 @@ const now = new Date();
 @Component({
   selector: 'ngbd-datepicker-popup',
   templateUrl: './datepicker.component.html',
-  providers: [ PredictionService ]
+  providers: [PredictionService]
 })
 
-export class NgbdDatepickerPopup {
+export class NgbDatepickerPopup {
   @Output() myClick = new EventEmitter();
 
   model: any;
-  weekDayNumber:number = 0;
+  weekDayNumber: number = 0;
 
   constructor(private predictionService: PredictionService) {
-    this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+    this.model = {
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      day: now.getDate()
+    };
   }
 
   ngOnInit() {

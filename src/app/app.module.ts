@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbdDatepickerPopup } from "./datepicker/datepicker.component";
+import { NgbModule, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerPopup } from "./datepicker/datepicker.component";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PredictionService } from './prediction.service';
@@ -57,19 +57,22 @@ import { CurrentUtilizationComponent } from './current-utilization/current-utili
 import { LayoutEditorComponent } from './layout-editor/layout-editor.component';
 import { DraggableModule } from './draggable/draggable.module';
 import { OpeningHoursDialogComponent } from './opening-hours-dialog/opening-hours-dialog.component';
+import { InterceptorModule } from './interceptor.module';
+import { IdElementDialogComponent } from './id-element-dialog/id-element-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NgbdDatepickerPopup,
+    NgbDatepickerPopup,
     MainNavComponent,
     PredictionComponent,
     OpeningHoursComponent,
     FrontPageComponent,
     CurrentUtilizationComponent,
     LayoutEditorComponent,
-    OpeningHoursDialogComponent
+    OpeningHoursDialogComponent,
+    IdElementDialogComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -78,6 +81,7 @@ import { OpeningHoursDialogComponent } from './opening-hours-dialog/opening-hour
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    InterceptorModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -91,10 +95,11 @@ import { OpeningHoursDialogComponent } from './opening-hours-dialog/opening-hour
     DraggableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   entryComponents: [
-    OpeningHoursDialogComponent
+    OpeningHoursDialogComponent,
+    IdElementDialogComponent
   ],
   providers: [PredictionService, CurrentUtilizationService, OpeningHoursService],
   bootstrap: [AppComponent]

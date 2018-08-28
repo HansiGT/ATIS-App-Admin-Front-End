@@ -25,4 +25,20 @@ describe('FrontPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain five tiles', () => {
+    expect(component).toBeFalsy();
+  });
+
+  it('should have one icon and text per tile', () => {
+    expect(component).toBeFalsy();
+  });
+
+  it('should have the same size for each tile', () => {
+    expect(component).toBeFalsy();
+  });
+
+  it('should have the same color for each tile', () => {
+    expect(component).toBeFalsy();
+  });
 });

@@ -8,8 +8,14 @@
         ngbDatepicker #d="ngbDatepicker">
 
       <div class="input-group-append">
-        <button id="calendar" class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-          <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+        <button 
+          id="calendar" 
+          class="btn btn-outline-secondary" 
+          (click)="d.toggle()" 
+          type="button">
+          <img 
+            src="assets/img/calendar-icon.png" 
+            style="width: 1.2rem; height: 1rem; cursor: pointer;" />
         </button>
       </div>
 
@@ -17,4 +23,10 @@
   </div>
 </form>
 
-<button id="show" type="button" class="btn btn-secondary" (click)="getPrediction();">Show!</button>
+<button 
+  id="show" 
+  type="button" 
+  class="btn btn-secondary" 
+  (click)="getPrediction();">
+    Show
+!</button>

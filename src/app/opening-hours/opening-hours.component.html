@@ -1,21 +1,21 @@
 <app-main-nav>
-<h2>Öffnungszeiten</h2>
-<div id="openingHours">
-  <h4><p>Die ATIS hat an folgenden Tagen geöffnet:</p></h4>
-  <table>
-    <tr *ngFor="let oH of openingHours">
-      <div [ngSwitch] = "oH.dayOfWeek">
-        <td *ngSwitchCase = "'MONDAY'">Montag</td>
-        <td *ngSwitchCase = "'TUESDAY'">Dienstag</td>
-        <td *ngSwitchCase = "'WEDNESDAY'">Mittwoch</td>
-        <td *ngSwitchCase = "'THURSDAY'">Donnerstag</td>
-        <td *ngSwitchCase = "'FRIDAY'">Freitag</td>
-        <td *ngSwitchCase = "'SATURDAY'">Samstag</td>
-      </div>
-      <td> : von {{ oH.startTime }}</td>
-      <td> bis {{ oH.endTime }}</td>
-    </tr>
-  </table>
-</div>
-<button mat-button (click)="openDialog()">Edit</button> 
-</app-main-nav>
+  <h2>Öffnungszeiten</h2>
+  <div id="openingHours">
+    <h4><p>Die ATIS hat an folgenden Tagen geöffnet:</p></h4>
+    <table>
+      <tr *ngFor="let oH of openingHours">
+        <div [ngSwitch] = "oH.dayOfWeek">
+          <td *ngSwitchCase = "'MONDAY'">Montag</td>
+          <td *ngSwitchCase = "'TUESDAY'">Dienstag</td>
+          <td *ngSwitchCase = "'WEDNESDAY'">Mittwoch</td>
+          <td *ngSwitchCase = "'THURSDAY'">Donnerstag</td>
+          <td *ngSwitchCase = "'FRIDAY'">Freitag</td>
+          <td *ngSwitchCase = "'SATURDAY'">Samstag</td>
+        </div>
+        <td> : von {{ oH.startTime }}</td>
+        <td> bis {{ oH.endTime }}</td>
+      </tr>
+    </table>
+  </div>
+  <button mat-button (click)="openDialog()">Edit</button> 
+  </app-main-nav>

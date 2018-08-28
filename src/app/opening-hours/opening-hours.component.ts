@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { OpeningHoursService } from '../opening-hours.service';
 import { OpeningHoursDialogComponent } from '../opening-hours-dialog/opening-hours-dialog.component';
 import { MatDialog } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-opening-hours',
   templateUrl: './opening-hours.component.html',
-  styleUrls: ['./opening-hours.component.css']
+  styleUrls: ['./opening-hours.component.css'],
+  providers: [OpeningHoursService]
 })
 export class OpeningHoursComponent implements OnInit {
   openingHours: Array<any>;
@@ -19,6 +22,10 @@ export class OpeningHoursComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if(result != undefined){
+      console.log(JSON.stringify(result));
+      this._OpeningHoursService.postOpeningHours(JSON.stringify(result)).subscribe((data:any) => {console.log(data)})
+      }
     });
   }
 

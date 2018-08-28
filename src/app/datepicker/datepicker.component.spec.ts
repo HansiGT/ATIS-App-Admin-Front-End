@@ -1,15 +1,16 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbdDatepickerPopup } from './datepicker.component';
+import { NgbDatepickerPopup } from './datepicker.component';
 
 describe('NgbdDatepickerPopup', () => {
-  let component: NgbdDatepickerPopup;
-  let fixture: ComponentFixture<NgbdDatepickerPopup>;
+  let component: NgbDatepickerPopup;
+  let fixture: ComponentFixture<NgbDatepickerPopup>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        NgbdDatepickerPopup
+        NgbDatepickerPopup,
+
       ],
       schemas: [
         NO_ERRORS_SCHEMA //muss drin sein weil sonst nur errors kommen
@@ -18,14 +19,22 @@ describe('NgbdDatepickerPopup', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgbdDatepickerPopup);
+    fixture = TestBed.createComponent(NgbDatepickerPopup);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
+  //fails because NgbDatepickerPopup is not the same name as the NgbDatepicker
+
   it('should create', () => {
-    const fixture = TestBed.createComponent(NgbdDatepickerPopup);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with the current date', () => {
+    expect(component).toBeFalsy();
+  });
+
+  it('should get the prediction once the "show" button is pressed', () => {
+    expect(component).toBeFalsy();
   });
 });

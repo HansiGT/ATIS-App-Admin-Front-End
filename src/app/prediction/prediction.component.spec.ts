@@ -8,12 +8,12 @@ describe('PredictionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PredictionComponent ],
+      declarations: [PredictionComponent],
       schemas: [
         NO_ERRORS_SCHEMA //muss drin sein weil sonst nur errors kommen
-       ]
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -24,5 +24,13 @@ describe('PredictionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have seven bars on the chart', () => {
+    expect(component).toBeFalsy();
+  });
+
+  it('should update the chart if select another day an press display', () => {
+    expect(component).toBeFalsy();
   });
 });
