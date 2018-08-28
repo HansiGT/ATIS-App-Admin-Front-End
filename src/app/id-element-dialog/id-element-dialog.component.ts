@@ -13,7 +13,7 @@ export class IdElementDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<IdElementDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
   }
