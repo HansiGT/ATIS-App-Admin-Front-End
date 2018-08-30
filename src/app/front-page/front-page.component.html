@@ -1,18 +1,22 @@
-<app-main-nav>
-    <div>
-        <h2>Willkommen auf der Haupseite</h2>
-    </div>
-    <mat-grid-list cols="2" rowHeight="16:9">
-        <mat-grid-tile 
-        *ngFor="let tile of tiles" 
-        [colspan]="tile.cols" 
-        [rowspan]="tile.rows" 
-        [style.background]="tile.color">
-            <a routerLink={{tile.routerLink}}>
-                <mat-icon matGridListIcon>{{ tile.imgSrc }}</mat-icon>
-                <p>
-                {{ tile.text }}
-            </a>
-        </mat-grid-tile>
-    </mat-grid-list>
-</app-main-nav>
+<!DOCTYPE html>
+<mat-toolbar color="primary">
+    <span>ATIS IOSB</span>
+</mat-toolbar>
+<div>
+    <h2>Herzlich Willkommen</h2>
+</div>
+<div class="tilegrid">
+   <mat-grid-list cols="2" rowHeight="16:9" gutterSize="15">
+       <mat-grid-tile 
+       *ngFor="let tile of tiles" 
+       [colspan]="tile.cols" 
+       [rowspan]="tile.rows" 
+       [style.background]="tile.color">
+           <a routerLink={{tile.routerLink}}>
+               <mat-icon matGridListIcon>{{ tile.imgSrc }}</mat-icon>
+               <p>
+               {{ tile.text }}
+           </a>
+       </mat-grid-tile>
+   </mat-grid-list>
+</div>

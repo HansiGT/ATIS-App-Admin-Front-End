@@ -4,25 +4,22 @@
   class="sidenav" 
   fixedInViewport="true" 
   [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-  [mode]="(isHandset$ | async) ? 'over' : 'over'" 
+  [mode]="(isHandset$ | async) ? 'over' : 'side'" 
   [opened]="!(isHandset$ | async)">
-    <mat-toolbar  >Menu</mat-toolbar>
+    <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/front-page">
         <mat-icon matGridListIcon>home</mat-icon>
         Startseite</a>
-      <a mat-list-item routerLink="/current-utilization">
-        <mat-icon matGridListIcon>desktop_windows</mat-icon>
-        Aktuelle Auslastung</a>
       <a mat-list-item routerLink="/opening-hours">
         <mat-icon matGridListIcon>access_time</mat-icon>
         Öffnungszeiten</a>
-      <a mat-list-item routerLink="/prediction">
-        <mat-icon matGridListIcon>bar_chart</mat-icon>
-        Vorhersage</a>
       <a mat-list-item routerLink="/layout-editor">
         <mat-icon matGridListIcon>view_compact</mat-icon>
         Layout-Editor</a>
+      <a mat-list-item routerLink="NONE">
+        <mat-icon matGridListIcon>event_available</mat-icon>
+        Reservierungen</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

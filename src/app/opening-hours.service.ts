@@ -15,11 +15,10 @@ export class OpeningHoursService {
   constructor(private _http: HttpClient) { }
 
   getOpeningHours(){
-    var url = 'https://workspace.cm.tm.kit.edu/opening-hours';
-    return this._http.get(url);
+    return this._http.get('https://workspace.cm.tm.kit.edu/opening-hours');
   }
 
-  postOpeningHours(json) {
-    return this._http.post('https://workspace.cm.tm.kit.edu/addOpeningHours/id/1', json, httpOptions);
+  putOpeningHours(json) {
+    return this._http.put('https://workspace.cm.tm.kit.edu/opening-hours/', json, httpOptions);
   }
 }

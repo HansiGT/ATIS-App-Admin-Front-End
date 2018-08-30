@@ -6,3 +6,19 @@
 a{
     color: white;
 }
+
+h2{
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+}
+
+.info{
+    text-align: center;
+    font-size: 3vh;
+    margin-bottom: 5vh;
+}
+
+.tilegrid {
+    margin: 3vw;
+}

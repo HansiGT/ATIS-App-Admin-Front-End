@@ -3,11 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { NgbModule, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDatepickerPopup } from "./datepicker/datepicker.component";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PredictionService } from './prediction.service';
-import { CurrentUtilizationService } from './current-utilization.service';
 import { OpeningHoursService } from './opening-hours.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,10 +47,8 @@ import { MatAutocompleteModule,
   MatTooltipModule,
   MatTreeModule, } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
-import { PredictionComponent } from './prediction/prediction.component';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { FrontPageComponent } from './front-page/front-page.component';
-import { CurrentUtilizationComponent } from './current-utilization/current-utilization.component';
 import { LayoutEditorComponent } from './layout-editor/layout-editor.component';
 import { DraggableModule } from './draggable/draggable.module';
 import { OpeningHoursDialogComponent } from './opening-hours-dialog/opening-hours-dialog.component';
@@ -64,12 +59,9 @@ import { IdElementDialogComponent } from './id-element-dialog/id-element-dialog.
 @NgModule({
   declarations: [
     AppComponent,
-    NgbDatepickerPopup,
     MainNavComponent,
-    PredictionComponent,
     OpeningHoursComponent,
     FrontPageComponent,
-    CurrentUtilizationComponent,
     LayoutEditorComponent,
     OpeningHoursDialogComponent,
     IdElementDialogComponent
@@ -101,7 +93,7 @@ import { IdElementDialogComponent } from './id-element-dialog/id-element-dialog.
     OpeningHoursDialogComponent,
     IdElementDialogComponent
   ],
-  providers: [PredictionService, CurrentUtilizationService, OpeningHoursService],
+  providers: [OpeningHoursService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,0 @@
-<app-main-nav>
-<h1>
-  Vorhersage
-</h1>
-<ngbd-datepicker-popup (myClick) = "displayPrediction($event);"> </ngbd-datepicker-popup>
-<div *ngIf="chart">
-  <canvas id="canvas" height = "300">{{ chart }}</canvas>
-</div>
-</app-main-nav>
