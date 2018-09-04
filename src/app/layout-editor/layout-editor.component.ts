@@ -2,6 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Position } from './position';
 import { IdElementDialogComponent } from '../id-element-dialog/id-element-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { LayoutEditorService } from '../layout-editor.service';
+
 
 export interface DialogData {
   id: number;
@@ -11,28 +14,30 @@ export interface DialogData {
 @Component({
   selector: 'app-layout-editor',
   templateUrl: './layout-editor.component.html',
-  styleUrls: ['./layout-editor.component.css']
+  styleUrls: ['./layout-editor.component.css'],
+  providers: [LayoutEditorService]
 })
 export class LayoutEditorComponent implements OnInit {
 
   elementID = 0;
   elementIndex = 0;
-  layoutWidth = 0;
-  layoutHeight = 0;
+  layoutWidth = 80;
+  layoutHeight = 70;
   displayingLayoutWidth = 0;
   displayingLayoutHeight = 0;
   layoutAlreadyExist = false;
   unit = 0;
   show = false;
   INDEX = 0;
-  elementWidth = 0;
-  elementHeight = 0;
-  elementType = '';
-  elementTypes = ['PC', 'Printer', 'Laptop', 'Wall', 'Door'];
-  srcElement: Element;
+  elementWidth = 5;
+  elementHeight = 5;
+  elementType = 'PC';
+  elementTypes = ['PC', 'Printer', 'Laptop', 'Room', 'Door'];
+  srcElement: HTMLElement;
+  tempElement: HTMLElement;
   addedElement: Array<HTMLElement> = new Array<HTMLElement>();
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private _LayoutEditorService: LayoutEditorService,public dialog: MatDialog) { }
 
   openDialog(element: HTMLElement): void {
     const dialogRef = this.dialog.open(IdElementDialogComponent, {
@@ -41,14 +46,12 @@ export class LayoutEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.elementID = result;
-      element.id = element.id + result;
+      element.id = element.id + "," + result;
     });
   }
 
   ngOnInit() {
-    // document.getElementById("layout").style.width = 0.8*screen.width + 82 + 'px';
-    // document.getElementById("layout").style.height = 0.8*screen.width+ 'px';
-    // document.getElementById("element").style.height = 0.8*screen.width + 'px';
+
   }
 
   createGridLayout() {
@@ -69,8 +72,8 @@ export class LayoutEditorComponent implements OnInit {
         gridElement.id = "gridElement" + i + '' + j;
         gridElement.style.width = 10 + 'px';
         gridElement.style.height = 10 + 'px';
-        gridElement.style.border = '1px solid #000';
-        gridElement.style.display = 'inline-block'
+        gridElement.style.border = '1px solid #ACA5A3';
+        gridElement.style.display = 'inline-block';
         gridElement.style.cssFloat = 'left';
         document.getElementById("layout").appendChild(gridElement);
       }
@@ -86,19 +89,25 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   onDragStart(event: PointerEvent): void {
-     this.srcElement = event.srcElement;
+     this.srcElement = <HTMLElement> event.srcElement;
+     this.tempElement = <HTMLElement> this.srcElement.cloneNode(true);
+     this.tempElement.style.position = 'absolute';
+     document.getElementById('container').appendChild(this.tempElement);
    }
 
    onDragMove(event: PointerEvent): void {
-     // console.log(`got drag move ${Math.round(event.clientX)} ${Math.round(event.clientY)}`);
+     this.tempElement.style.top = event.clientY + window.scrollY - 10  + 'px';
+     this.tempElement.style.left = event.clientX + window.scrollX - document.getElementById('container').getBoundingClientRect().left - 10  + 'px';
    }
 
    onDragEnd(event: PointerEvent, srcElement: any): void {
      var element = <HTMLElement> document.createElement('div');
+     var container = <HTMLElement> document.getElementById('container');
+     container.removeChild(this.tempElement);
      element.style.position = "absolute";
      element.style.background = "black";
      element.style.top = event.clientY + window.scrollY  + 'px';
-     element.style.left = event.clientX + window.scrollX + 'px';
+     element.style.left = event.clientX + window.scrollX - container.getBoundingClientRect().left  + 'px';
      element.style.width = srcElement.clientWidth + 'px';
      element.style.height = srcElement.clientHeight + 'px';
      element.style.background = srcElement.style.background;
@@ -116,8 +125,12 @@ export class LayoutEditorComponent implements OnInit {
          case 'url("assets/img/current-utilization-icons/printer.svg") 0% 0% / contain':
              type = 'Printer';
              break;
-         case '0% 0% / contain black':
-             type = 'Wall';
+         case '0% 0% / contain transparent':
+             type = 'Room';
+             element.style.outline = '2px solid blue';
+             break;
+          case '0% 0% / contain rgb(30, 144, 255)':
+             type = 'Door';
              break;
          default:
      }
@@ -168,49 +181,79 @@ export class LayoutEditorComponent implements OnInit {
         case "Printer":
             tempElement.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
             break;
-        case "Wall":
-            tempElement.style.background = 'black';
+        case "Room":
+            tempElement.style.background = 'transparent';
+            tempElement.style.outline = '2px solid blue';
+            break;
+        case "Door":
+            tempElement.style.background = '#1e90ff';
             break;
         default:
     }
     tempElement.style.backgroundSize = 'contain';
    }
 
+
    save() {
+     var json = {"poolElements":[],"portalGates":[],"rooms":[]};
      var firstElementRect = document.getElementById("gridElement00").getBoundingClientRect();
      for (let i=0; i < this.addedElement.length; i++) {
-       var type = '';
-       switch (this.addedElement[i].style.background) {
-           case 'url("assets/img/current-utilization-icons/win_free.svg") 0% 0% / contain':
-               type = 'PC';
-               break;
-           case 'url("assets/img/current-utilization-icons/laptop.svg") 0% 0% / contain':
-               type = 'Laptop';
-               break;
-           case 'url("assets/img/current-utilization-icons/printer.svg") 0% 0% / contain':
-               type = 'Printer';
-               break;
-           case '0% 0% / contain black':
-               type = 'Wall';
-               break;
-           default:
-       }
+      var iRect = this.addedElement[i].getBoundingClientRect();
+      var elementType = this.addedElement[i].id.slice(0,this.addedElement[i].id.indexOf(","));
+      var elementID = this.addedElement[i].id.slice(this.addedElement[i].id.indexOf(",") + 1, this.addedElement[i].id.length);
 
-       console.log(Math.round((this.addedElement[i].getBoundingClientRect().left - firstElementRect.left)/10) + ', '
-                 + Math.round((this.addedElement[i].getBoundingClientRect().top - firstElementRect.top)/10) + ', '
-                 + Math.round(this.addedElement[i].offsetWidth/10) + ', '
-                 + Math.round(this.addedElement[i].offsetHeight/10) + ', ' + this.addedElement[i].id);
+      if (elementType.includes("Door")) {
+        if (this.addedElement[i].offsetWidth > this.addedElement[i].offsetHeight) {
+          json['portalGates'].push(JSON.parse(
+                        '{"pos":[{"x":' + Math.round((iRect.left - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.top - firstElementRect.top)/10) 
+                      + '},{"x":' + Math.round((iRect.left - firstElementRect.left + this.addedElement[i].offsetWidth)/10) 
+                      + ',"y":'   + Math.round((iRect.top - firstElementRect.top)/10) 
+                      + '}],"id":' + elementID
+                      + ',"type":"' + elementType + '"}'));
+        }
+        else {
+          json['portalGates'].push(JSON.parse(
+                        '{"pos":[{"x":' + Math.round((iRect.left - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.top - firstElementRect.top)/10) 
+                      + '},{"x":' + Math.round((iRect.left - firstElementRect.left)/10)
+                      + ',"y":'   + Math.round((iRect.top - firstElementRect.top + this.addedElement[i].offsetHeight)/10)
+                      + '}],"id":' + elementID
+                      + ',"type":"' + elementType + '"}'));
+        }
+      }
+      else if (elementType.includes("Room")) {
+        json['rooms'].push(JSON.parse(
+                         '{"pos":[{"x":' + Math.round((iRect.left - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.top - firstElementRect.top)/10) 
+                       + '},{"x":'  + Math.round((iRect.right - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.top - firstElementRect.top)/10)
+                       + '},{"x":'  + Math.round((iRect.right - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.bottom - firstElementRect.top)/10) 
+                       + '},{"x":'  + Math.round((iRect.left - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.bottom - firstElementRect.top)/10) 
+                       + '}],"id":' + elementID +"}"));
+      }
+      else {
+        json['poolElements'].push(JSON.parse(
+                      '{"pos":{"x":' + Math.round((iRect.left - firstElementRect.left)/10) + ',"y":' + Math.round((iRect.top - firstElementRect.top)/10) 
+                    + '},"width":' + Math.round(this.addedElement[i].offsetWidth/10)
+                    + ',"length":' + Math.round(this.addedElement[i].offsetHeight/10)
+                    + ',"id":' +  elementID
+                    + ',"type":"' + elementType + '"}'));
+      }
      }
+     console.log(json);
+     this._LayoutEditorService.putLayout(JSON.stringify(json)).subscribe((data:any) => {console.log(data)});
    }
 
    // A helper method to check if 2 element are overlapped each other
    overlapped(element1: Element, element2: Element) {
-     var rect1 = element1.getBoundingClientRect();
-     var rect2 = element2.getBoundingClientRect();
-     return !(rect1.right < rect2.left ||
-                rect1.left > rect2.right ||
-                rect1.bottom < rect2.top ||
-                rect1.top > rect2.bottom)
+     if (element1.id.includes("Room") || element2.id.includes("Room") ) {
+       return false;
+     }
+     else {
+      var rect1 = element1.getBoundingClientRect();
+      var rect2 = element2.getBoundingClientRect();
+      return !(rect1.right < rect2.left ||
+                 rect1.left > rect2.right ||
+                 rect1.bottom < rect2.top ||
+                 rect1.top > rect2.bottom)
+     }
    }
 
    outOfBound(element: HTMLElement) {
@@ -221,7 +264,7 @@ export class LayoutEditorComponent implements OnInit {
 
    autofit(element: HTMLElement) {
      var firstElementRect = document.getElementById("gridElement00").getBoundingClientRect();
-     element.style.left = firstElementRect.left + Math.round((element.offsetLeft  - firstElementRect.left)/10)*10 + 1 + 'px';
+     element.style.left = firstElementRect.left + window.scrollX + Math.round((element.offsetLeft -  window.scrollX  - firstElementRect.left)/10)*10 + 1 + 'px';
      element.style.top = firstElementRect.top + window.scrollY + Math.round((element.offsetTop -  window.scrollY - firstElementRect.top)/10)*10 + 1 + 'px';
    }
 

@@ -9,9 +9,9 @@
       <!-- Form to adjust layout's width and height -->
       <div id="layoutParameter">
           <h3> Kenngröße des Layouts </h3>
-          Width: <input placeholder="width"  [(ngModel)]="layoutWidth" />
-          Height: <input placeholder="height"  [(ngModel)]="layoutHeight" />
-          <button (click)="createGridLayout();">Create</button>
+          Breite: <input placeholder="width"  [(ngModel)]="layoutWidth" />
+          Höhe: <input placeholder="height"  [(ngModel)]="layoutHeight" />
+          <button (click)="createGridLayout();">Erstellen</button>
       </div>
 
       <!-- Layout -->
@@ -28,13 +28,13 @@
      <!-- Element which is added to the layout -->
       <div id="element">
           <h3> Kenngröße des Elements </h3>
-          Width: <input placeholder="width"  [(ngModel)]="elementWidth" />
-          Height: <input placeholder="height"  [(ngModel)]="elementHeight" />
+          Breite: <input placeholder="width"  [(ngModel)]="elementWidth" />
+          Höhe: <input placeholder="height"  [(ngModel)]="elementHeight" />
           <select [(ngModel)]="elementType" id="category">
-           <option value="" disabled selected>Select type</option>
+           <option value="" disabled selected>Wähle</option>
            <option *ngFor="let elementType of elementTypes" [value]="elementType">{{elementType}}</option>
          </select>
-          <button (click)="createElement();">Create</button>
+          <button (click)="createElement();">Erstellen</button>
 
           <div class="row">
             <div id="element0" appDraggable
@@ -53,6 +53,18 @@
               (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
             </div>
             <div id="element5" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element6" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element7" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element8" appDraggable
+              (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
+            </div>
+            <div id="element9" appDraggable
               (dragStart)="onDragStart($event)" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd($event, srcElement)">
             </div>
           </div>
