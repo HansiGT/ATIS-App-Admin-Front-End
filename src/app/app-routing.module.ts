@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { FrontPageComponent } from './front-page/front-page.component';
 import { LayoutEditorComponent } from './layout-editor/layout-editor.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'layout-editor',
     component: LayoutEditorComponent
+  },
+  {
+    path: 'reservation',
+    component: ReservationComponent
   }
 ];
 

@@ -18,7 +18,7 @@ export class OpeningHoursComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(OpeningHoursDialogComponent, {
-      height: "90vh"
+      height: "80vh"
     });
 
     dialogRef.afterClosed().subscribe(result => {
