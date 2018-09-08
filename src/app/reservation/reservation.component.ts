@@ -7,6 +7,7 @@ import {MatNativeDateModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { ReservationDialogComponent } from '../reservation-dialog/reservation-dialog.component';
+import {FormControl, Validators} from '@angular/forms';
 import { Meta } from '../../../node_modules/@angular/platform-browser';
 
 @Component({
@@ -24,6 +25,16 @@ export class ReservationComponent implements OnInit {
   minDate = new Date();
   displayedColumns: string[] = ['user', 'id', 'date', 'delete'];
   dataSource;
+  nameCheck = new FormControl('', [Validators.required]);
+  idCheck = new FormControl('', [Validators.required]);
+
+  nameError() {
+    this.nameCheck.hasError('required') ? 'Bitte geben sie einen Namen ein' : '';
+  }
+
+  idError() {
+    this.idCheck.hasError('required') ? 'Bitte geben sie einen Namen ein' : '';
+  }
 
   constructor(private meta: Meta, private _ReservationService: ReservationService, public dialog: MatDialog) { 
     this.meta.updateTag({ name:"viewport", content: 'user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi' });
@@ -54,7 +65,17 @@ export class ReservationComponent implements OnInit {
     var json = { "elementId":this.pcid, "start": start, "name": this.name, "end": end, "type": "PC", "day": formattedDate, "workspaceId":1};
     if((this.name != undefined) && (this.name != "") && (this.pcid != undefined) && (this.pcid != "")){
       console.log(json);
-      this._ReservationService.postReservation(JSON.stringify(json)).subscribe((data:any) => {console.log(data)});
+      this._ReservationService.postReservation(JSON.stringify(json)).subscribe((data:any) => {
+        console.log(data);
+        location.reload();
+      });
     }
+  }
+
+  deleteReservation(id) {
+    this._ReservationService.deleteReservation(id).subscribe((data:any) => {
+      console.log(data);
+      location.reload();
+    });
   }
 }

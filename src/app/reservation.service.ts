@@ -21,4 +21,8 @@ export class ReservationService {
   postReservation(json) {
     return this._http.post('https://reservation.cm.tm.kit.edu/reservation', json, httpOptions);
   }
+
+  deleteReservation(id) {
+    return this._http.delete('https://reservation.cm.tm.kit.edu/reservation/workspace/1/id/' + id + '/type/PC', httpOptions);
+  }
 }
