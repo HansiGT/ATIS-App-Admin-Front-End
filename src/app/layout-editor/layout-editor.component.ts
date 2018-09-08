@@ -19,7 +19,7 @@ export interface DialogData {
 })
 export class LayoutEditorComponent implements OnInit {
 
-  elementID = 0;
+  elementID = 1;
   elementIndex = 0;
   layoutWidth = 80;
   layoutHeight = 70;
@@ -46,6 +46,7 @@ export class LayoutEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.elementID = result;
+      this.elementID++;
       element.id = element.id + "," + result;
     });
   }
@@ -79,14 +80,109 @@ export class LayoutEditorComponent implements OnInit {
       }
     }
 
+    var container = <HTMLElement> document.getElementById('container');
     for (let  i = this.addedElement.length - 1; i >= 0; i--) {
       if (this.outOfBound(this.addedElement[i])) {
-        var container = <HTMLElement> document.getElementById('container');
-        container.removeChild(document.getElementById(this.addedElement[i].id));
+        container.removeChild(this.addedElement[i]);
         this.addedElement.splice(i,1);
       }
     }
   }
+
+  loadExistedLayout() {
+    var unit = screen.width / 162;
+    this._LayoutEditorService.getLayout(1)
+    .subscribe(res => {
+      var poolElements = res['poolElements'];
+      var container = <HTMLElement> document.getElementById('container');
+      var firstElementRect = document.getElementById("gridElement00").getBoundingClientRect();
+      poolElements.forEach(poolElement => {
+        var element = <HTMLElement> document.createElement('div');
+        element.style.position = "absolute";
+        element.style.top = poolElement.pos.y*5 + firstElementRect.top  + 'px';
+        element.style.left = poolElement.pos.x*5 + firstElementRect.left - container.getBoundingClientRect().left + 'px';
+        element.style.width = poolElement.width*5 - 2 + 'px';
+        element.style.height = poolElement.length*5 - 2 + 'px';
+        switch (poolElement.type) {
+          case "PC":
+            element.style.background = "url('assets/img/current-utilization-icons/win_free.svg')";
+            break;
+          case "Laptop":
+            element.style.background = "url('assets/img/current-utilization-icons/laptop.png')";
+            break;
+          case "Printer":
+            element.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
+            break;
+          case "Room":
+            element.style.background = 'transparent';
+            element.style.outline = '2px solid blue';
+             break;
+          case "Door":
+            element.style.background = '#1e90ff';
+            break;
+          default:
+        }
+        element.style.backgroundSize = 'contain';
+        element.id = poolElement.type + "," + poolElement.id;
+
+        container.appendChild(element);
+        this.autofit(element);
+        this.addedElement.push(element);
+        this.dragElement(element);
+
+        // if (this.outOfBound(element)) {
+        //     alert('Out of bound!');
+        //     container.removeChild(element);
+        // }
+        // else {
+        //   // Check if the new element is overlapped the others
+        //   // If yes, the new element will not be added
+        //   var overlapped = false;
+        //   for (let i=0; i < this.addedElement.length; i++){
+        //     overlapped = overlapped || this.overlapped(element, this.addedElement[i]);
+        //   }
+        //   if (overlapped) {
+        //     container.removeChild(element);
+        //     alert('Element überschnitten!');
+        //   }
+        //   else {
+        //     this.addedElement.push(element);
+        //     this.dragElement(element);
+        //   }
+        // }
+      });
+      
+      });
+  }
+
+  createElement() {
+    var tempElement = document.getElementById('element' + this.INDEX++);
+    tempElement.style.width = this.elementWidth*10 + 'px';
+    tempElement.style.height = this.elementHeight*10 + 'px';
+    tempElement.style.marginTop = '10px';
+    tempElement.style.marginLeft = '10px';
+    tempElement.style.border = '1px solid black';
+    switch (this.elementType) {
+        case "PC":
+            tempElement.style.background = "url('assets/img/current-utilization-icons/win_free.svg')";
+            break;
+        case "Laptop":
+            tempElement.style.background = "url('assets/img/current-utilization-icons/laptop.png')";
+            break;
+        case "Printer":
+            tempElement.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
+            break;
+        case "Room":
+            tempElement.style.background = 'transparent';
+            tempElement.style.outline = '2px solid blue';
+            break;
+        case "Door":
+            tempElement.style.background = '#1e90ff';
+            break;
+        default:
+    }
+    tempElement.style.backgroundSize = 'contain';
+   }
 
   onDragStart(event: PointerEvent): void {
      this.srcElement = <HTMLElement> event.srcElement;
@@ -164,34 +260,7 @@ export class LayoutEditorComponent implements OnInit {
 
    }
 
-   createElement() {
-    var tempElement = document.getElementById('element' + this.INDEX++);
-    tempElement.style.width = this.elementWidth*10 + 'px';
-    tempElement.style.height = this.elementHeight*10 + 'px';
-    tempElement.style.marginTop = '10px';
-    tempElement.style.marginLeft = '10px';
-    tempElement.style.border = '1px solid black';
-    switch (this.elementType) {
-        case "PC":
-            tempElement.style.background = "url('assets/img/current-utilization-icons/win_free.svg')";
-            break;
-        case "Laptop":
-            tempElement.style.background = "url('assets/img/current-utilization-icons/laptop.png')";
-            break;
-        case "Printer":
-            tempElement.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
-            break;
-        case "Room":
-            tempElement.style.background = 'transparent';
-            tempElement.style.outline = '2px solid blue';
-            break;
-        case "Door":
-            tempElement.style.background = '#1e90ff';
-            break;
-        default:
-    }
-    tempElement.style.backgroundSize = 'contain';
-   }
+
 
 
    save() {
@@ -238,7 +307,7 @@ export class LayoutEditorComponent implements OnInit {
       }
      }
      console.log(json);
-     this._LayoutEditorService.putLayout(JSON.stringify(json)).subscribe((data:any) => {console.log(data)});
+    this._LayoutEditorService.putLayout(json).subscribe((data:any) => {console.log(data)});
    }
 
    // A helper method to check if 2 element are overlapped each other
@@ -317,9 +386,8 @@ export class LayoutEditorComponent implements OnInit {
       autof(elmnt);
 
       if (checkOutOfBound(elmnt)) {
-        alert('Element out of bound');
-        elmnt.style.top = originTop;
-        elmnt.style.left = originLeft;
+        document.getElementById("container").removeChild(elmnt);
+        addedElement.splice(addedElement.indexOf(elmnt),1);
       }
       else {
         // Check if the element which is moving is overlapped the others

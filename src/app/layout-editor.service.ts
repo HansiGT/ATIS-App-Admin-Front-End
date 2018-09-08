@@ -14,8 +14,8 @@ export class LayoutEditorService {
 
   constructor(private _http: HttpClient) { }
 
-  getLayout(){
-    return this._http.get('https://workspace.cm.tm.kit.edu/layout');
+  getLayout(id: number) {
+    return this._http.get('https://workspace.cm.tm.kit.edu/layout/id/' + id);
   }
 
   putLayout(json) {
