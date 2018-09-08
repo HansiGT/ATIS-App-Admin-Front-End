@@ -1,0 +1,20 @@
+h2 {
+    text-align: center;
+    margin: 3vh;
+}
+
+table {
+    margin-top: 5vh;
+    margin-left: 8vw;
+    width: 68vw;
+    border-collapse: collapse;
+}
+
+button {
+    margin-top: 1vh;
+    margin-left: 5vw;
+}
+
+.panel {
+    margin-top: 5vh;
+}

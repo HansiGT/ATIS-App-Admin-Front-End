@@ -1,82 +1,49 @@
 
 <h2 mat-dialog-title>Öffnungszeiten ändern</h2>
-<table><tr>
-  <td>Montag:</td>
-  <td><mat-form-field class="time-form-field">
-    <input [(ngModel)]="mondayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker" [format]="24" matInput #input placeholder="Von:" value="07:00">
-    <ngx-material-timepicker #picker></ngx-material-timepicker>
-  </mat-form-field></td>
-  <td><mat-form-field class="time-form-field">
-    <input [(ngModel)]="mondayuntil" [ngxTimepicker]="picker2" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="21:00">
-    <ngx-material-timepicker #picker2></ngx-material-timepicker>
-  </mat-form-field></td>
-  </tr>
-  <tr>
-    <td>Dienstag:</td>
-    <td><mat-form-field class="time-form-field">
-      <input [(ngModel)]="tuesdayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker3" [format]="24" matInput #input placeholder="Von:" value="07:00">
-      <ngx-material-timepicker #picker3></ngx-material-timepicker>
-    </mat-form-field></td>
-    <td><mat-form-field class="time-form-field">
-      <input [(ngModel)]="tuesdayuntil" [ngxTimepicker]="picker4" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="21:00">
-      <ngx-material-timepicker #picker4></ngx-material-timepicker>
-    </mat-form-field></td>
-  </tr>
-  <tr>
-    <td>Mittwoch:</td>
-     <td><mat-form-field class="time-form-field">
-       <input [(ngModel)]="wednesdayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker5" [format]="24" matInput #input placeholder="Von:" value="07:00">
-       <ngx-material-timepicker #picker5></ngx-material-timepicker>
-     </mat-form-field></td>
-     <td><mat-form-field class="time-form-field">
-       <input [(ngModel)]="wednesdayuntil" [ngxTimepicker]="picker6" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="21:00">
-       <ngx-material-timepicker #picker6></ngx-material-timepicker>
-     </mat-form-field></td>
-  </tr>
-  <tr>
-    <td>Donnerstag:</td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="thursdayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker7" [format]="24" matInput #input placeholder="Von:" value="07:00">
-        <ngx-material-timepicker #picker7></ngx-material-timepicker>
-      </mat-form-field></td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="thursdayuntil" [ngxTimepicker]="picker8" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="21:00">
-        <ngx-material-timepicker #picker8></ngx-material-timepicker>
-      </mat-form-field></td>
-  </tr>
-  <tr>
-      <td>Freitag:</td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="fridayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker9" [format]="24" matInput #input placeholder="Von:" value="07:00">
-        <ngx-material-timepicker #picker9></ngx-material-timepicker>
-      </mat-form-field></td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="fridayuntil" [ngxTimepicker]="picker10" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="21:00">
-        <ngx-material-timepicker #picker10></ngx-material-timepicker>
-      </mat-form-field></td>
-  </tr>
-  <tr>
-      <td>Samstag:</td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="saturdayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker11" [format]="24" matInput #input placeholder="Von:" value="07:00">
-        <ngx-material-timepicker #picker11></ngx-material-timepicker>
-      </mat-form-field></td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="saturdayuntil" [ngxTimepicker]="picker12" maxlength="5" [format]="24" matInput #input placeholder="Bis:" value="14:00">
-        <ngx-material-timepicker #picker12></ngx-material-timepicker>
-      </mat-form-field></td>
-  </tr>
-  <tr>
-      <td>Sonntag:</td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="sundayfrom" aria-label="24hr format" maxlength="5" [ngxTimepicker]="picker13" [format]="24" matInput #input placeholder="Von:">
-        <ngx-material-timepicker #picker13></ngx-material-timepicker>
-      </mat-form-field></td>
-      <td><mat-form-field class="time-form-field">
-        <input [(ngModel)]="sundayuntil" [ngxTimepicker]="picker14" maxlength="5" [format]="24" matInput #input placeholder="Bis:">
-        <ngx-material-timepicker #picker14></ngx-material-timepicker>
-      </mat-form-field></td>
-  </tr>            
-</table>
+
+<div class="edit-oh-table">
+  <table>
+    <tr *ngFor="let ohday of oHweek">
+      <td [ngSwitch]="ohday.day">
+        <h5>
+          <div *ngSwitchCase="'MONDAY'">Montag: </div>
+          <div *ngSwitchCase="'TUESDAY'">Dienstag: </div>
+          <div *ngSwitchCase="'WEDNESDAY'">Mittwoch: </div>
+          <div *ngSwitchCase="'THURSDAY'">Donnerstag: </div>
+          <div *ngSwitchCase="'FRIDAY'">Freitag: </div>
+          <div *ngSwitchCase="'SATURDAY'">Samstag: </div>
+          <div *ngSwitchCase="'SUNDAY'">Sonntag: </div>
+        </h5>
+      </td>
+      <td>
+        <mat-form-field class="time-from-field">
+          <input
+            [(ngModel)]= "ohday.from"
+            aria-label="24hr format" 
+            maxlength="5" 
+            [ngxTimepicker]="picker1"
+            [format]="24" 
+            matInput #input placeholder="Von:" 
+            value="07:00">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="time-form-field">
+          <input
+            [(ngModel)]= "ohday.to"
+            aria-label="24hr format" 
+            maxlength="5" 
+            [ngxTimepicker]="picker2" 
+            [format]="24" 
+            matInput #input placeholder="Bis:" 
+            value="21:00">
+          <ngx-material-timepicker #picker2></ngx-material-timepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>   
+</div>
+
 <button (click)="cancel()" mat-button>Cancel</button>
 <button (click)="save()" id="Save" mat-raised-button color="primary">Save</button>
