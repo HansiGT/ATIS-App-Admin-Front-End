@@ -4,6 +4,7 @@ import { IdElementDialogComponent } from '../id-element-dialog/id-element-dialog
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { LayoutEditorService } from '../layout-editor.service';
+import { isInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 export interface DialogData {
@@ -47,14 +48,36 @@ export class LayoutEditorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined) {
-        this.elementID = result + 1;
-        element.id = element.id + "," + result;
-        this.addedElement.push(element);
-        this.dragElement(element);
+      if (isNaN(result)) {
+        document.getElementById("container").removeChild(element);
       }
       else {
-        document.getElementById("container").removeChild(element);
+        // There is no element has the same type and id 
+        if (document.getElementById(element.id + "," + result) == null) {
+          // Auto-increment for id in dialog
+          this.elementID = result;
+          this.elementID++;
+
+          // Create span to display element's id
+          var idSpan = document.createElement('span');
+          idSpan.innerHTML = result;
+          idSpan.style.verticalAlign = 'top';
+          idSpan.style.fontSize = '1vw';
+          element.appendChild(idSpan);
+
+          // Set element's id and add it to array
+          element.id = element.id + "," + result;
+          this.addedElement.push(element);
+          this.dragElement(element);
+        }
+        else {
+          var originalBorder = document.getElementById(element.id + "," + result).style.border;
+          document.getElementById(element.id + "," + result).style.border = '2px solid red';
+          setTimeout(function() {
+            document.getElementById(element.id + "," + result).style.border = originalBorder;
+          }, 2000);
+          document.getElementById("container").removeChild(element);
+        }
       }
       
     });
@@ -106,48 +129,10 @@ export class LayoutEditorComponent implements OnInit {
       this.addedElement.splice(i,1);
     }
 
-    var unit = screen.width / 162;
     this._LayoutEditorService.getLayout(this.layoutToLoadID)
     .subscribe(res => {
       var container = <HTMLElement> document.getElementById('container');
       var firstElementRect = document.getElementById("gridElement00").getBoundingClientRect();
-
-      // Load pool's elements to layout
-      var poolElements = res['poolElements'];
-      poolElements.forEach(poolElement => {
-        var element = <HTMLElement> document.createElement('div');
-        element.style.position = "absolute";
-        element.style.top = poolElement.pos.y*5 + firstElementRect.top + window.scrollY  + 'px';
-        element.style.left = poolElement.pos.x*5 + firstElementRect.left - container.getBoundingClientRect().left + 'px';
-        element.style.width = poolElement.width*5 - 2 + 'px';
-        element.style.height = poolElement.length*5 - 2 + 'px';
-        switch (poolElement.type) {
-          case "PC":
-            element.style.background = "url('assets/img/current-utilization-icons/win_free.svg')";
-            break;
-          case "Laptop":
-            element.style.background = "url('assets/img/current-utilization-icons/laptop.png')";
-            break;
-          case "Printer":
-            element.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
-            break;
-          case "Room":
-            element.style.background = 'transparent';
-            element.style.outline = '2px solid blue';
-             break;
-          case "Door":
-            element.style.background = '#1e90ff';
-            break;
-          default:
-        }
-        element.style.backgroundSize = 'contain';
-        element.id = poolElement.type + "," + poolElement.id;
-
-        container.appendChild(element);
-        this.autofit(element);
-        this.addedElement.push(element);
-        this.dragElement(element);
-      });
 
       // Load pool's rooms to layout
       var rooms = res['rooms'];
@@ -188,6 +173,50 @@ export class LayoutEditorComponent implements OnInit {
           this.dragElement(element);
         });
 
+      });
+
+      // Load pool's elements to layout
+      var poolElements = res['poolElements'];
+      poolElements.forEach(poolElement => {
+        var element = <HTMLElement> document.createElement('div');
+        element.style.position = "absolute";
+        element.style.top = poolElement.pos.y*5 + firstElementRect.top + window.scrollY  + 'px';
+        element.style.left = poolElement.pos.x*5 + firstElementRect.left - container.getBoundingClientRect().left + 'px';
+        element.style.width = poolElement.width*5 - 2 + 'px';
+        element.style.height = poolElement.length*5 - 2 + 'px';
+        switch (poolElement.type) {
+          case "PC":
+            element.style.background = "url('assets/img/current-utilization-icons/win_free.svg')";
+            break;
+          case "Laptop":
+            element.style.background = "url('assets/img/current-utilization-icons/laptop.png')";
+            break;
+          case "Printer":
+            element.style.background = "url('assets/img/current-utilization-icons/printer.svg')";
+            break;
+          case "Room":
+            element.style.background = 'transparent';
+            element.style.outline = '2px solid blue';
+             break;
+          case "Door":
+            element.style.background = '#1e90ff';
+            break;
+          default:
+        }
+        element.style.backgroundSize = 'contain';
+        element.id = poolElement.type + "," + poolElement.id;
+
+        // Create span to display element's id
+        var idSpan = document.createElement('span');
+        idSpan.innerHTML = poolElement.id;
+        idSpan.style.verticalAlign = 'top';
+        idSpan.style.fontSize = '1vw';
+        element.appendChild(idSpan);
+
+        container.appendChild(element);
+        this.autofit(element);
+        this.addedElement.push(element);
+        this.dragElement(element);
       });
 
       });
