@@ -5,7 +5,22 @@
   <h1>Layout Editor</h1>
 
   <div class="container">
+      
       <div>
+          <mat-form-field appearance="outline">
+              <mat-select placeholder="ID von Layout wählen" [(value)]="layoutToLoadID">
+                  <mat-option value="1">Default Layout</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="6">6</mat-option>
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                  <mat-option value="9">9</mat-option>
+                  <mat-option value="10">10</mat-option>
+              </mat-select>
+          </mat-form-field>
           <button (click)="loadExistedLayout();">Layout laden</button>
       </div>
 
@@ -24,6 +39,20 @@
       <!-- Save button -->
       <div class="row justify-content-center" *ngIf="show">
        <div class="col-4">
+          <mat-form-field appearance="outline">
+              <mat-select placeholder="ID von Layout wählen" [(value)]="layoutToSaveID">
+                  <mat-option value="1">Default Layout</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="6">6</mat-option>
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                  <mat-option value="9">9</mat-option>
+                  <mat-option value="10">10</mat-option>
+              </mat-select>
+          </mat-form-field>
          <button class="btn btn-primary"  (click)="save();">Save</button>
        </div>
      </div>

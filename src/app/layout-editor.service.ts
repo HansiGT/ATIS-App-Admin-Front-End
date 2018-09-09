@@ -18,7 +18,7 @@ export class LayoutEditorService {
     return this._http.get('https://workspace.cm.tm.kit.edu/layout/id/' + id);
   }
 
-  putLayout(json) {
-    return this._http.post('https://workspace.cm.tm.kit.edu/add-layout/id/2', json, httpOptions);
+  putLayout(id:number, json) {
+    return this._http.post('https://workspace.cm.tm.kit.edu/add-layout/id/' + id, json, httpOptions);
   }
 }
