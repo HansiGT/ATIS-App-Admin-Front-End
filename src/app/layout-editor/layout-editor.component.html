@@ -1,5 +1,11 @@
 <app-main-nav>
-  <body>
+<body>
+    <mat-toolbar color="primary">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>ATIS IOSB</span>
+   </mat-toolbar>
 <div id="container">
 
   <h1>Layout Editor</h1>

@@ -19,6 +19,6 @@ export class OpeningHoursService {
   }
 
   putOpeningHours(json) {
-    return this._http.put('https://workspace.cm.tm.kit.edu/opening-hours/', json, httpOptions);
+    return this._http.put('https://workspace.cm.tm.kit.edu/opening-hours', json, httpOptions);
   }
 }

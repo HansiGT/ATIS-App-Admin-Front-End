@@ -1,4 +1,11 @@
 <app-main-nav>
+<div class="content">
+  <mat-toolbar color="primary">
+       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+       </button>
+       <span>ATIS IOSB</span>
+  </mat-toolbar>
   <h2>Öffnungszeiten</h2>
   <div id="openingHours">
     <h4><p>Die ATIS hat an folgenden Tagen geöffnet:</p></h4>
@@ -17,7 +24,8 @@
       </tr>
     </table>
   </div>
-  <button mat-raised-button (click)="openDialog()"><i class="material-icons">
+  <button mat-raised-button color="primary" (click)="openDialog()"><i class="material-icons">
     edit
-    </i> Bearbeiten</button> 
-  </app-main-nav>
+    </i> Bearbeiten</button>
+</div>
+</app-main-nav>

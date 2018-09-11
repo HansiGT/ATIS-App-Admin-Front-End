@@ -1,6 +1,6 @@
 
 <h2 mat-dialog-title>Öffnungszeiten ändern</h2>
-
+<p>Für geschlossene Tage Felder frei lassen.</p>
 <div class="edit-oh-table">
   <table>
     <tr *ngFor="let ohday of oHweek">
@@ -18,32 +18,31 @@
       <td>
         <mat-form-field class="time-from-field">
           <input
-            [(ngModel)]= "ohday.from"
             aria-label="24hr format" 
-            maxlength="5" 
+            maxlength="10" 
             [ngxTimepicker]="picker1"
-            [format]="24" 
-            matInput #input placeholder="Von:" 
-            value="07:00">
+            [format]=24 
+            matInput #input placeholder="Von:"
+            [(ngModel)]= "ohday.from">
           <ngx-material-timepicker #picker1></ngx-material-timepicker>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field class="time-form-field">
           <input
-            [(ngModel)]= "ohday.to"
             aria-label="24hr format" 
-            maxlength="5" 
+            maxlength="10" 
             [ngxTimepicker]="picker2" 
-            [format]="24" 
-            matInput #input placeholder="Bis:" 
-            value="21:00">
+            [format]=24 
+            matInput #input placeholder="Bis:"
+            [(ngModel)]= "ohday.to">
           <ngx-material-timepicker #picker2></ngx-material-timepicker>
         </mat-form-field>
       </td>
     </tr>
   </table>   
 </div>
-
+<div class="buttons">
 <button (click)="cancel()" mat-button>Cancel</button>
 <button (click)="save()" id="Save" mat-raised-button color="primary">Save</button>
+</div>

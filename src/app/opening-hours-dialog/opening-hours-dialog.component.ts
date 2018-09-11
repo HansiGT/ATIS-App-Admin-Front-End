@@ -7,8 +7,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export interface OHday {
 
   day: string;
-  from: string;
-  to: string;
+  from;
+  to;
 
 }
 
@@ -23,6 +23,14 @@ export class OpeningHoursDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.oHweek.forEach(day => {
+      this.data.openingHours.forEach(day2 =>{
+        if(day.day == day2.dayOfWeek) {
+          day.from = day2.startTime;
+          day.to = day2.endTime;
+        }
+      })
+    })
   }
   
   //bin mir nnoch nicht 100% sicher wie ich in der .html darauf zugreifen soll
@@ -42,8 +50,8 @@ export class OpeningHoursDialogComponent implements OnInit {
       if (day.from != "" && day.to != "") {
         json['openingHours'].push({
           "dayOfWeek": day.day,
-          "startTime": day.from,
-          "endTime": day.to
+          "startTime": (day.from.indexOf(":") > 1) ? day.from.substring(0, day.from.indexOf(":") + 3) : ("0" + day.from.substring(0, day.from.indexOf(":") + 3)),
+          "endTime": (day.to.indexOf(":") > 1) ? day.to.substring(0, day.to.indexOf(":") + 3) : ("0" + day.to.substring(0, day.to.indexOf(":") + 3)),
         })
       }
     });

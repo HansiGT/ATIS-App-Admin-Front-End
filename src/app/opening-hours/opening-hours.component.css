@@ -9,3 +9,8 @@ h2 {
 button {
     left: 4vw;
 }
+
+.content {
+    height: 100vh;
+    overflow: hidden;
+}

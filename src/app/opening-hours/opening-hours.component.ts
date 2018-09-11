@@ -18,14 +18,20 @@ export class OpeningHoursComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(OpeningHoursDialogComponent, {
-      height: "80vh"
+      height: "80vh",
+      data: {
+        openingHours: this.openingHours
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if(result != undefined){
       console.log(JSON.stringify(result));
-      this._OpeningHoursService.putOpeningHours(JSON.stringify(result)).subscribe((data:any) => {console.log(data)})
+      this._OpeningHoursService.putOpeningHours(JSON.stringify(result)).subscribe((data:any) => {
+        console.log(data);
+        location.reload();
+      })
       }
     });
   }

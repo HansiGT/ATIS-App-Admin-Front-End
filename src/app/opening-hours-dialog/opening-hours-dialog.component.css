@@ -1,8 +1,16 @@
-#Save {
+button {
     margin-top: 2vw;
-    left:40%;
+    display: inline-block;
+}
+
+#Save {
+    margin-left: 9vw;
 }
 
 .time-form-field {
     width: 8vw;
+}
+
+.buttons {
+    text-align: center;
 }

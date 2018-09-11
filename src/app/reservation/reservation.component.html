@@ -1,4 +1,10 @@
 <app-main-nav>
+    <mat-toolbar color="primary">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>ATIS IOSB</span>
+   </mat-toolbar>
   <h2>Reservierungen</h2>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="user">
@@ -34,7 +40,7 @@
         </mat-form-field>
       
         <mat-form-field appearance="outline">
-          <input matInput [(ngModel)]="date" [matDatepicker]="picker" (click)="picker.open()" [min]="minDate" placeholder="Tag auswählen">
+          <input matInput [(ngModel)]="date" [matDatepicker]="picker" (click)="picker.open()" [min]="minDate" placeholder="Tag auswählen" readonly>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
         </mat-form-field>
