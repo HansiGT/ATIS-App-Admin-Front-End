@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   password;
   name;
+  hide = true;
   constructor(private _LoginService: LoginService, private router: Router) { }
 
   ngOnInit() {
