@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OpeningHoursService } from '../opening-hours.service';
+import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 /*
 each tile has text that it will display, a link to the page that the text describes
@@ -52,10 +54,30 @@ export class FrontPageComponent implements OnInit {
       color: '#3f51b5'
     }
   ];
-  constructor() { }
+  constructor(private _loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    this._loginService.getLogin(this.getCookie('username'), this.getCookie('password')).subscribe((data:any) => {
+      console.log(data);
+    },
+    error => {
+      this.router.navigateByUrl('/login');
+    }
+    );
   }
-
-
+  getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }
 }

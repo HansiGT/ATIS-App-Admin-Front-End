@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span>ATIS IOSB</span>
+</mat-toolbar>
+<h2>Login</h2>
+<div class="formfields">
+<mat-form-field appearance="outline">
+  <input matInput [(ngModel)]="name" placeholder="Name">
+</mat-form-field>
+<mat-form-field appearance="outline">
+  <input matInput [(ngModel)]="password" placeholder="Password" [type]="hide ? 'text' : 'password'">
+  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="checkLogin()">Login</button>
+</div>

@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material';
 import { ReservationDialogComponent } from '../reservation-dialog/reservation-dialog.component';
 import {FormControl, Validators} from '@angular/forms';
 import { Meta } from '../../../node_modules/@angular/platform-browser';
+import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation',
@@ -36,11 +38,18 @@ export class ReservationComponent implements OnInit {
     this.idCheck.hasError('required') ? 'Bitte geben sie einen Namen ein' : '';
   }
 
-  constructor(private meta: Meta, private _ReservationService: ReservationService, public dialog: MatDialog) { 
+  constructor(private meta: Meta, private _ReservationService: ReservationService, public dialog: MatDialog, private _loginService: LoginService, private router: Router) { 
     this.meta.updateTag({ name:"viewport", content: 'user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi' });
   }
 
   ngOnInit() {
+    this._loginService.getLogin(this.getCookie('username'), this.getCookie('password')).subscribe((data:any) => {
+      console.log(data);
+    },
+    error => {
+      this.router.navigateByUrl('/login');
+    }
+    );
     this.minDate.setDate(this.minDate.getDate() + 1);
     this._ReservationService.getReservation().subscribe((data:any) => {
       this.dataSource = [];
@@ -48,6 +57,22 @@ export class ReservationComponent implements OnInit {
         this.dataSource.push({user: data.name, id: data.elementId, date: data.start + " - " + data.end + ", " + data.day, delete:"delete"});
       })
     })
+  }
+
+  getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
   }
 
   openDialog(): void {

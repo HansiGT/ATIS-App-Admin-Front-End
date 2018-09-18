@@ -1,0 +1,17 @@
+h2 {
+    text-align: center;
+    margin: 3vh;
+}
+
+.formfields {
+    text-align: center;
+}
+
+mat-form-field {
+    display: inline-block;
+    margin: 5px;
+}
+
+button {
+    margin-left: 4vw;
+}
