@@ -11,8 +11,9 @@
        *ngFor="let tile of tiles" 
        [colspan]="tile.cols" 
        [rowspan]="tile.rows" 
-       [style.background]="tile.color">
-           <a routerLink={{tile.routerLink}}>
+       [style.background]="tile.color"
+       routerLink={{tile.routerLink}}>
+       <a routerLink={{tile.routerLink}}>
                <mat-icon matGridListIcon>{{ tile.imgSrc }}</mat-icon>
                <p>
                {{ tile.text }}

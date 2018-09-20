@@ -56,6 +56,7 @@ import { InterceptorModule } from './interceptor.module';
 import { IdElementDialogComponent } from './id-element-dialog/id-element-dialog.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationDialogComponent } from './reservation-dialog/reservation-dialog.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ReservationDialogComponent } from './reservation-dialog/reservation-dia
     OpeningHoursDialogComponent,
     IdElementDialogComponent,
     ReservationComponent,
-    ReservationDialogComponent
+    ReservationDialogComponent,
+    LoginComponent
   ],
   imports: [
     NgbModule.forRoot(),
