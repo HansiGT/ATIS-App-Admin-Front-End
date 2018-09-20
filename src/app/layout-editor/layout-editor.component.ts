@@ -5,6 +5,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { LayoutEditorService } from '../layout-editor.service';
 import { isInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 
 export interface DialogData {
@@ -40,7 +42,7 @@ export class LayoutEditorComponent implements OnInit {
   tempElement: HTMLElement;
   addedElement: Array<HTMLElement> = new Array<HTMLElement>();
 
-  constructor(private _LayoutEditorService: LayoutEditorService,public dialog: MatDialog) { }
+  constructor(private _LayoutEditorService: LayoutEditorService,public dialog: MatDialog, private _loginService: LoginService, private router: Router) { }
 
   openDialog(element: HTMLElement): void {
     const dialogRef = this.dialog.open(IdElementDialogComponent, {
@@ -84,7 +86,29 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._loginService.getLogin(this.getCookie('username'), this.getCookie('password')).subscribe((data:any) => {
+      console.log(data);
+    },
+    error => {
+      this.router.navigateByUrl('/login');
+    }
+    );
+  }
 
+  getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
   }
 
   createGridLayout() {
