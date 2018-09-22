@@ -247,11 +247,14 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   createElement() {
+    var element =document.getElementById('element');
+    element.style.paddingBottom = '0px';
     var tempElement = document.getElementById('element' + this.INDEX++);
     tempElement.style.width = this.elementWidth*10 + 'px';
     tempElement.style.height = this.elementHeight*10 + 'px';
     tempElement.style.marginTop = '10px';
     tempElement.style.marginLeft = '10px';
+    tempElement.style.marginBottom = '10px';
     tempElement.style.border = '1px solid black';
     switch (this.elementType) {
         case "PC":

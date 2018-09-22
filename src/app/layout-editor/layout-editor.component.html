@@ -1,75 +1,56 @@
 <app-main-nav>
 <body>
     <mat-toolbar color="primary">
-        <span>ATIS IOSB</span>
+        <span>ATIS App</span>
    </mat-toolbar>
 <div id="container">
 
-  <h1>Layout Editor</h1>
+  <h2>Layout Editor</h2>
 
   <div class="container">
-      
-      <div>
-          <mat-form-field appearance="outline">
-              <mat-select placeholder="ID von Layout wählen" [(value)]="layoutToLoadID">
-                  <mat-option value="1">Default Layout</mat-option>
-                  <mat-option value="2">2</mat-option>
-                  <mat-option value="3">3</mat-option>
-                  <mat-option value="4">4</mat-option>
-                  <mat-option value="5">5</mat-option>
-                  <mat-option value="6">6</mat-option>
-                  <mat-option value="7">7</mat-option>
-                  <mat-option value="8">8</mat-option>
-                  <mat-option value="9">9</mat-option>
-                  <mat-option value="10">10</mat-option>
-              </mat-select>
-          </mat-form-field>
-          <button (click)="loadExistedLayout();">Layout laden</button>
-      </div>
 
       <!-- Form to adjust layout's width and height -->
       <div id="layoutParameter">
-          <h3> Kenngröße des Layouts </h3>
-          Breite: <input placeholder="width"  [(ngModel)]="layoutWidth" />
-          Höhe: <input placeholder="height"  [(ngModel)]="layoutHeight" />
-          <button (click)="createGridLayout();">Erstellen</button>
-      </div>
-
-      <!-- Layout -->
-      <div id="layout">
-      </div>
-
-      <!-- Save button -->
-      <div class="row justify-content-center" *ngIf="show">
-       <div class="col-4">
-          <mat-form-field appearance="outline">
-              <mat-select placeholder="ID von Layout wählen" [(value)]="layoutToSaveID">
-                  <mat-option value="1">Default Layout</mat-option>
-                  <mat-option value="2">2</mat-option>
-                  <mat-option value="3">3</mat-option>
-                  <mat-option value="4">4</mat-option>
-                  <mat-option value="5">5</mat-option>
-                  <mat-option value="6">6</mat-option>
-                  <mat-option value="7">7</mat-option>
-                  <mat-option value="8">8</mat-option>
-                  <mat-option value="9">9</mat-option>
-                  <mat-option value="10">10</mat-option>
-              </mat-select>
+          <h4> Neues Layout erstellen </h4>
+          <mat-form-field>
+            <input  matInput placeholder="Breite"  [(ngModel)]="layoutWidth" />
           </mat-form-field>
-         <button class="btn btn-primary"  (click)="save();">Save</button>
-       </div>
-     </div>
+          <mat-form-field>
+            <input matInput placeholder="Höhe"  [(ngModel)]="layoutHeight" />
+          </mat-form-field>
+          <button class='create' mat-raised-button color='primary' (click)="createGridLayout();">Erstellen</button>
+          <mat-form-field>
+            <mat-select placeholder="Layout-ID wählen" [(value)]="layoutToLoadID">
+                <mat-option [value]="1">Default Layout</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+                <mat-option value="10">10</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button id="load" mat-raised-button color='primary' (click)="loadExistedLayout();">Layout laden</button>
+      </div>
 
-     <!-- Element which is added to the layout -->
-      <div id="element">
-          <h3> Kenngröße des Elements </h3>
-          Breite: <input placeholder="width"  [(ngModel)]="elementWidth" />
-          Höhe: <input placeholder="height"  [(ngModel)]="elementHeight" />
-          <select [(ngModel)]="elementType" id="category">
-           <option value="" disabled selected>Wähle</option>
-           <option *ngFor="let elementType of elementTypes" [value]="elementType">{{elementType}}</option>
-         </select>
-          <button (click)="createElement();">Erstellen</button>
+      <!-- Element which is added to the layout -->
+      <div id="element" *ngIf="show">
+          <h4> Neuen Elementtyp erstellen </h4>
+          <mat-form-field>
+              <input  matInput placeholder="Breite"  [(ngModel)]="elementWidth" />
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Höhe"  [(ngModel)]="elementHeight" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Typ" select [(value)]="elementType" id="category">
+              <mat-option *ngFor="let elementType of elementTypes" [value]="elementType">{{elementType}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button class='create' mat-raised-button color='primary' (click)="createElement();">Erstellen</button>
 
           <div class="row">
             <div id="element0" appDraggable
@@ -104,6 +85,31 @@
             </div>
           </div>
       </div>
+
+      <!-- Layout -->
+      <div id="layout">
+      </div>
+
+      <!-- Save button -->
+      <div class="row justify-content-center" *ngIf="show">
+       <div class="col-4">
+          <mat-form-field>
+              <mat-select placeholder="Layout-ID wählen" [(value)]="layoutToSaveID">
+                  <mat-option value="1">Default Layout</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="6">6</mat-option>
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                  <mat-option value="9">9</mat-option>
+                  <mat-option value="10">10</mat-option>
+              </mat-select>
+          </mat-form-field>
+         <button mat-raised-button color='primary'  (click)="save();">Speichern</button>
+       </div>
+     </div>
 
     </div>
 </div>

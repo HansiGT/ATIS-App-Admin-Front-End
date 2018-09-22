@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <mat-toolbar color="primary">
-    <span>ATIS IOSB</span>
+    <span>ATIS App</span>
 </mat-toolbar>
-<div>
-    <h2>Herzlich Willkommen</h2>
-</div>
+<h2>Herzlich Willkommen</h2>
 <div class="tilegrid">
-   <mat-grid-list cols="2" rowHeight="16:9" gutterSize="15">
+   <mat-grid-list cols="3" rowHeight="16:9" gutterSize="15">
        <mat-grid-tile 
        *ngFor="let tile of tiles" 
        [colspan]="tile.cols" 

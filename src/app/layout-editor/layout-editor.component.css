@@ -8,13 +8,22 @@
   }
 }
 
-.element {
-  background: black;
+#element {
+  padding-bottom: 70px;
 }
 
-h1 {
-  font-size: 6vw;
-	text-align: center;
+h2{
+  text-align: center;
+  padding-top: 85px;
+  margin-bottom: 3vh;
+}
+
+#load {
+  margin-left: 10px;
+}
+
+.create{
+  margin-right: 10%;
 }
 
 .square {
@@ -29,5 +38,19 @@ h1 {
 }
 
 #layout {
-	position: relative;
+  position: relative;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+
+mat-form-field {
+  margin-right: 10px;
+}
+
+.col-4{
+  margin-top: 3vh;
 }
