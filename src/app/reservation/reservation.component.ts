@@ -28,7 +28,10 @@ export class ReservationComponent implements OnInit {
   displayedColumns: string[] = ['user', 'id', 'date', 'delete'];
   dataSource;
   nameCheck = new FormControl('', [Validators.required]);
-  idCheck = new FormControl('', [Validators.required]);
+  idCheck = new FormControl('', Validators.compose([
+    Validators.required,
+    Validators.pattern('[0-9]*')
+  ]));
 
   nameError() {
     this.nameCheck.hasError('required') ? 'Bitte geben sie einen Namen ein' : '';
